@@ -14,6 +14,16 @@
       "key": "objectId",
       "value": "",
       "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "messageId",
+      "value": "",
+      "type": "string"
     }
   ],
   "item": [
@@ -319,7 +329,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"victoria\"\n}",
+              "raw": "{\n  \"username\": \"victoria-{{$timestamp}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -335,7 +345,19 @@
                 "users"
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"userId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Listar users",
@@ -359,13 +381,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/users/1",
+              "raw": "{{baseUrl}}/users/{{userId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "users",
-                "1"
+                "{{userId}}"
               ]
             }
           }
@@ -387,7 +409,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"text\": \"Olá, mundo!\",\n  \"userId\": 1\n}",
+              "raw": "{\n  \"text\": \"Olá, mundo!\",\n  \"userId\": {{userId}}\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -403,7 +425,19 @@
                 "messages"
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"messageId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Listar messages",
@@ -427,13 +461,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/messages/1",
+              "raw": "{{baseUrl}}/messages/{{messageId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "messages",
-                "1"
+                "{{messageId}}"
               ]
             }
           }
