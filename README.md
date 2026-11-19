@@ -47,4 +47,6 @@ As tabelas são criadas automaticamente (`sequelize.sync()`) na primeira requisi
 
 ## Postman
 
-Importe `express-proj-gerenciador-tarefas.postman_collection.json` e ajuste a variável de coleção `baseUrl` para a URL da Vercel.
+API publicada: https://gerenciador-de-tarefas-six-flax.vercel.app
+
+Importe `express-proj-gerenciador-tarefas.postman_collection.json`. A variável de coleção `baseUrl` já aponta para a URL da Vercel; para testar localmente, troque por `http://localhost:3000`.
